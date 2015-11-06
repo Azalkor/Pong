@@ -13,4 +13,4 @@ public class Main  {
 		window.displayOnscreen();
 	}
 }
-//fils de pute enculé et tes une salope
+//fils de pute enculï¿½ et tu es une salope
