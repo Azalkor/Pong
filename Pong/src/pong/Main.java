@@ -13,4 +13,4 @@ public class Main  {
 		window.displayOnscreen();
 	}
 }
-//fils de pute encul� et tu es une salope
+//fils de pute yolo
