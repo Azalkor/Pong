@@ -13,5 +13,3 @@ public class Main  {
 		window.displayOnscreen();
 	}
 }
-//fils de pute yolooo
-//git gentil
