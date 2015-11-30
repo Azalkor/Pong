@@ -45,10 +45,15 @@ public class Pong extends JPanel implements KeyListener {
 	 */
 	private Graphics graphicContext = null;
 	private ArrayList<PongItem> items;
-	private Player players[];
+	private static Player players[];
+	public static int NB_PLAYERS = 2;
 	
+	public static Player[] getPlayers() {
+		return players;
+	}
+
 	public Pong() {
-		players=new Player[4];
+		players=new Player[NB_PLAYERS];
 		items = new ArrayList<PongItem> ();
 		players[0]=new Player("Gertrude", new Racket());
 		items.add(players[0].getRacket());
