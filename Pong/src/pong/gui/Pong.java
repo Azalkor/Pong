@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -56,7 +57,11 @@ public class Pong extends JPanel implements KeyListener {
 		players=new Player[NB_PLAYERS];
 		items = new ArrayList<PongItem> ();
 		players[0]=new Player("Gertrude", new Racket());
+		Racket tmp = new Racket();
+		tmp.setPosition(new Point(SIZE_PONG_X-tmp.getWidth(), SIZE_PONG_Y/2));
+		players[1]=new Player("Jean-Eude", tmp);
 		items.add(players[0].getRacket());
+		items.add(players[1].getRacket());
 		items.add(new Ball());
 		this.setPreferredSize(new Dimension(SIZE_PONG_X, SIZE_PONG_Y));
 		this.addKeyListener(this);
@@ -76,12 +81,16 @@ public class Pong extends JPanel implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_UP:
-			case KeyEvent.VK_KP_UP:
 				players[0].getRacket().setSpeed(-Racket.RACKET_SPEED);
 				break;
 			case KeyEvent.VK_DOWN:
-			case KeyEvent.VK_KP_DOWN:
 				players[0].getRacket().setSpeed(Racket.RACKET_SPEED);
+				break;
+			case KeyEvent.VK_Z:
+				players[1].getRacket().setSpeed(-Racket.RACKET_SPEED);
+				break;
+			case KeyEvent.VK_S:
+				players[1].getRacket().setSpeed(Racket.RACKET_SPEED);
 				break;
 			default:
 				System.out.println("got press "+e);
@@ -89,14 +98,18 @@ public class Pong extends JPanel implements KeyListener {
 	}
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_UP:
-			case KeyEvent.VK_KP_UP:
-				players[0].getRacket().setSpeed(0);
-				break;
-			case KeyEvent.VK_DOWN:
-			case KeyEvent.VK_KP_DOWN:
-				players[0].getRacket().setSpeed(0);
-				break;
+		case KeyEvent.VK_UP:
+			players[0].getRacket().setSpeed(0);
+			break;
+		case KeyEvent.VK_DOWN:
+			players[0].getRacket().setSpeed(0);
+			break;
+		case KeyEvent.VK_Z:
+			players[1].getRacket().setSpeed(0);
+			break;
+		case KeyEvent.VK_S:
+			players[1].getRacket().setSpeed(0);
+			break;
 			default:
 				System.out.println("got release "+e);
 		}
