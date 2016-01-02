@@ -24,11 +24,9 @@ public class Server extends Thread {
 				while (true) {
 					Socket client = ecoute.accept();
 					sleep(Pong.timestep);
-					DataOutputStream dOut = new DataOutputStream(
-							client.getOutputStream());
-	
-					dOut.writeInt((int) (Pong.getPlayers()[0].getRacket().getPosition().getY()));
-					dOut.flush(); // Send off the data
+					DataOutputStream dos = new DataOutputStream(client.getOutputStream());
+					dos.writeInt((int) (Pong.getPlayers()[0].getRacket().getPosition().getY()));
+					dos.flush();
 					client.close();
 				}
 		} catch (Exception e) {
