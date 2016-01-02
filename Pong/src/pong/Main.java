@@ -10,6 +10,7 @@ import pong.net.Server;
  */
 public class Main  {
 	public static void main(String[] args) {
+		Pong pong = new Pong();
 		if(args.length!=0){
 			Client client = new Client(args[0]);
 			client.start();
@@ -18,7 +19,7 @@ public class Main  {
 			Server server = new Server();
 			server.start();
 		}
-		Pong pong = new Pong();
+		
 		Window window = new Window(pong);
 		window.displayOnscreen();
 	}
