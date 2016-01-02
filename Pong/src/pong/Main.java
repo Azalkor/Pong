@@ -12,11 +12,11 @@ public class Main  {
 	public static void main(String[] args) {
 		if(args.length!=0){
 			Client client = new Client(args[0]);
-			client.run();
+			client.start();
 		}
 		else{
 			Server server = new Server();
-			server.run();
+			server.start();
 		}
 		Pong pong = new Pong();
 		Window window = new Window(pong);

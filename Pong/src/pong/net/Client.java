@@ -11,17 +11,15 @@ public class Client extends Thread{
 		sName = serverName;
 	}
 	public void run(){
-		while(true){
-			try {
-				s = new Socket(sName, Server.getEcoute().getLocalPort());
-				OutputStream os = s.getOutputStream();
-				InputStream is = s.getInputStream();
-				os.write(1);
-				System.out.println(is.read());
-				s.close();
-			} catch(Exception e) {
-				System.out.println(e.getMessage());
-			}
+		try {
+			s = new Socket(sName, 4444);
+			OutputStream os = s.getOutputStream();
+			InputStream is = s.getInputStream();
+			os.write(1);
+			System.out.println(is.read());
+			s.close();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }

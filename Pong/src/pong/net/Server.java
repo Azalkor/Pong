@@ -14,8 +14,7 @@ public class Server extends Thread{
 	public Server(){}
 	public void run(){
 		try {
-			ServerSocket ecoute = new ServerSocket(0);
-			System.out.println(ecoute.getLocalPort());
+			ServerSocket ecoute = new ServerSocket(4444);
 			System.out.println("coucou");
 			while(true) {
 				Socket client = ecoute.accept();
