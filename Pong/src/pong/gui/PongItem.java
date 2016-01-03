@@ -48,6 +48,8 @@ public class PongItem {
 		this.height = height;
 		this.position = position;
 	}
+	
+	public void reset(){}
 
 	public void animate(){}
 }

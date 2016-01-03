@@ -10,11 +10,10 @@ public class Ball extends PongItem {
 	/**
 	 * Speed of ball (in pixels per second)
 	 */
-	public static final int BALL_SPEED = -2;
 	public static final int MAX_SPEED = 10;
 	public static final int MIN_SPEED = 2;
 	
-	private Point ball_speed = new Point(BALL_SPEED, BALL_SPEED);
+	private Point ball_speed;
 
 	public Point getBall_speed() {
 		return ball_speed;
@@ -64,26 +63,41 @@ public class Ball extends PongItem {
 
 	public Ball() {
 		super();
-		setPosition(new Point(Pong.SIZE_PONG_X / 2, Pong.SIZE_PONG_Y / 2));
 		image = Toolkit.getDefaultToolkit().createImage(
 				ClassLoader.getSystemResource("image/ball.png"));
 		super.icon = new ImageIcon(this.image);
 		this.width = icon.getIconWidth();
 		this.height = icon.getIconHeight();
+		reset();
+	}
+	
+	public void reset(){
+		setPosition(new Point(Pong.SIZE_PONG_X / 2, Pong.SIZE_PONG_Y / 2));
+		int tmp = (int)(Math.random()*4);
+		System.out.println(tmp);
+		switch(tmp){
+			case 0 : setBall_speed(new Point(MIN_SPEED,MIN_SPEED));
+			 break;
+			case 1 : setBall_speed(new Point(MIN_SPEED,-MIN_SPEED));
+			 break;
+			case 2 : setBall_speed(new Point(-MIN_SPEED,MIN_SPEED));
+			 break;
+			default: setBall_speed(new Point(-MIN_SPEED,-MIN_SPEED));
+		}
 	}
 
 	public void animate() {
 		Point pos = this.getPosition();
 		pos.translate(getBall_speed().x, getBall_speed().y);
 		this.setPosition(pos);
-//		if (pos.x < 0)
-//		{
-//			GAME OVER LOST
-//		}
-//		if (pos.x > Pong.SIZE_PONG_X - this.getWidth())
-//		{
-//			GAME OVER WIN
-//		}
+		if (pos.x < 0)
+		{
+			Pong.getPlayers()[1].incScore();
+		}
+		if (pos.x > Pong.SIZE_PONG_X - this.getWidth())
+		{
+			Pong.getPlayers()[0].incScore();
+		}
 		if (pos.y < 0) {
 			this.setPosition(new Point(this.getPosition().x, 0));
 			setBall_speed(new Point(getBall_speed().x, -getBall_speed().y));
@@ -97,7 +111,7 @@ public class Ball extends PongItem {
 	}
 
 	public void racketCollision(Point initialPos) {
-		for(int i=0; i<Pong.NB_PLAYERS; i++){
+		for(int i=0; i<Pong.getNB_PLAYERS(); i++){
 			Point pos = new Point((int)(initialPos.getX()+getWidth()/2), (int)(initialPos.getY()+getHeight()/2));
 			if(i%2==0){
 				racketCollisionPair(Pong.getPlayers()[i].getRacket(), pos);

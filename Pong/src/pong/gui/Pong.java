@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -45,10 +47,25 @@ public class Pong extends JPanel implements KeyListener {
 	 * Graphic component context derived from buffer Image
 	 */
 	private Graphics graphicContext = null;
-	private ArrayList<PongItem> items;
+	private Label l0,l1;
+	private static ArrayList<PongItem> items;
 	private static Player players[];
-	public static int NB_PLAYERS = 2;
+	private static int NB_PLAYERS = 2;
+	private static int SCORE_WIN = 1;
+	private static String WINNER;
 	
+	public static String getWINNER() {
+		return WINNER;
+	}
+
+	public static int getNB_PLAYERS() {
+		return NB_PLAYERS;
+	}
+
+	public static int getSCORE_WIN() {
+		return SCORE_WIN;
+	}
+
 	public static Player[] getPlayers() {
 		return players;
 	}
@@ -56,15 +73,40 @@ public class Pong extends JPanel implements KeyListener {
 	public Pong() {
 		players=new Player[NB_PLAYERS];
 		items = new ArrayList<PongItem> ();
-		players[0]=new Player("Gertrude", new Racket());
-		Racket tmp = new Racket();
-		tmp.setPosition(new Point(SIZE_PONG_X-tmp.getWidth(), SIZE_PONG_Y/2));
-		players[1]=new Player("Jean-Eude", tmp);
+		Racket r0 = new Racket();
+		r0.setPosition(new Point(0,Pong.SIZE_PONG_Y/2- r0.getHeight()/2));
+		players[0]=new Player("Gertrude", r0);
+		Racket r1 = new Racket();
+		r1.setPosition(new Point(SIZE_PONG_X-r1.getWidth(), SIZE_PONG_Y/2 - r1.getHeight()/2));
+		players[1]=new Player("Jean-Eude", r1);
 		items.add(players[0].getRacket());
 		items.add(players[1].getRacket());
 		items.add(new Ball());
+		Panel p = new Panel();
+		l0 = new Label (players[0].getName()+" : 10");
+		l1 = new Label (players[1].getName()+" : 10");
+		p.add(l0);
+		p.add(l1);
+		p.setBackground(backgroundColor);
+		add(p);
 		this.setPreferredSize(new Dimension(SIZE_PONG_X, SIZE_PONG_Y));
 		this.addKeyListener(this);
+	}
+	
+	public static void goal(){
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		for(PongItem i : items){
+			i.reset();
+		}
+	}
+	
+	public static void gameOver(String winner){
+		WINNER = winner;
 	}
 
 	/**
@@ -151,6 +193,8 @@ public class Pong extends JPanel implements KeyListener {
 		for(PongItem i : items){
 			graphicContext.drawImage(i.image, i.getPosition().x, i.getPosition().y, i.getWidth(), i.getHeight(), null);
 		}
+		l0.setText(getPlayers()[0].getName()+" : "+getPlayers()[0].getScore());
+		l1.setText(getPlayers()[1].getName()+" : "+getPlayers()[1].getScore());
 		this.repaint();
 	}
 }

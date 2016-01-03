@@ -24,12 +24,15 @@ public class Racket extends PongItem {
 
 	public Racket() {
 		super();
-		setPosition(new Point(0,Pong.SIZE_PONG_Y/2));
 		image = Toolkit.getDefaultToolkit().createImage(
 				ClassLoader.getSystemResource("image/racket.png"));
 		super.icon = new ImageIcon(this.image);
 		this.width = icon.getIconWidth();
 		this.height = icon.getIconHeight();
+	}
+	
+	public void reset(){
+		setPosition(new Point(position.x,Pong.SIZE_PONG_Y/2-height/2));
 	}
 
 	public void animate() {
