@@ -74,7 +74,6 @@ public class Ball extends PongItem {
 	public void reset(){
 		setPosition(new Point(Pong.SIZE_PONG_X / 2, Pong.SIZE_PONG_Y / 2));
 		int tmp = (int)(Math.random()*4);
-		System.out.println(tmp);
 		switch(tmp){
 			case 0 : setBall_speed(new Point(MIN_SPEED,MIN_SPEED));
 			 break;

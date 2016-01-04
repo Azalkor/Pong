@@ -16,7 +16,8 @@ public class Player {
 	}
 	public void incScore() {
 		if(++score>=Pong.getSCORE_WIN()){
-			Pong.gameOver(name);
+			//Pong.gameOver(name);
+			Pong.goal();
 		}
 		else{
 			Pong.goal();
