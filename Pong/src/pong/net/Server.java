@@ -35,7 +35,6 @@ public class Server extends Thread {
 							p.setScore(0);
 						}
 					}
-					sleep(Pong.timestep);
 					DataOutputStream dos = new DataOutputStream(client.getOutputStream());
 					dos.writeInt((int) (Pong.getPlayers()[0].getRacket().getPosition().getY()));
 					for(Ball b : Pong.getBalls()){
@@ -48,6 +47,7 @@ public class Server extends Thread {
 					DataInputStream dis = new DataInputStream(client.getInputStream());
 					int tmp = dis.readInt();
 					Pong.getPlayers()[1].getRacket().setPosition(new Point((int)Pong.getPlayers()[1].getRacket().getPosition().getX(), tmp));
+					sleep(Pong.timestep);
 					client.close();
 				}
 		} catch (Exception e) {

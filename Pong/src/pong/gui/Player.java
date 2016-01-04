@@ -1,5 +1,6 @@
 package pong.gui;
 
+
 public class Player {
 	private String name;
 	private int score;
@@ -19,8 +20,16 @@ public class Player {
 	}
 	public void incScore() {
 		if(++score>=Pong.getSCORE_WIN()){
-			//Pong.gameOver(name);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
 			Pong.goal();
+			for(Player p : Pong.getPlayers()){
+				p.setScore(0);
+			}
 		}
 		else{
 			Pong.goal();

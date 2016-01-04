@@ -51,18 +51,15 @@ public class Pong extends JPanel implements KeyListener {
 		return items;
 	}
 
-	private Label l0,l1;
+	private static Label l0,l1;
 	private static ArrayList<PongItem> items;
 	private static Player players[];
 	private static Ball balls[];
 	private static int NB_PLAYERS = 2;
 	private static int NB_MAX_BALLS = 1;
-	private static int SCORE_WIN = 1;
-	private static String WINNER;
+	private static int SCORE_WIN = 5;
 	
-	public static String getWINNER() {
-		return WINNER;
-	}
+	
 	public static Ball[] getBalls() {
 		return balls;
 	}
@@ -81,10 +78,10 @@ public class Pong extends JPanel implements KeyListener {
 		items = new ArrayList<PongItem> ();
 		Racket r0 = new Racket();
 		r0.setPosition(new Point(0,Pong.SIZE_PONG_Y/2- r0.getHeight()/2));
-		players[0]=new Player("Gertrude", r0);
+		players[0]=new Player("Moi", r0);
 		Racket r1 = new Racket();
 		r1.setPosition(new Point(SIZE_PONG_X-r1.getWidth(), SIZE_PONG_Y/2 - r1.getHeight()/2));
-		players[1]=new Player("Jean-Eude", r1);
+		players[1]=new Player("Lui", r1);
 		balls=new Ball[NB_MAX_BALLS];
 		balls[0]=new Ball();
 		items.add(players[0].getRacket());
@@ -106,11 +103,6 @@ public class Pong extends JPanel implements KeyListener {
 			i.reset();
 		}
 	}
-	
-	public static void gameOver(String winner){
-		WINNER = winner;
-	}
-
 	/**
          * Proceeds to the movement of the ball and updates the screen
 	 */

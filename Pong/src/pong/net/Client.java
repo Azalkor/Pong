@@ -26,10 +26,10 @@ public class Client extends Thread {
 					b.setBall_speed(new Point(-dis.readInt(), dis.readInt()));
 					b.setPosition(new Point(Pong.SIZE_PONG_X-b.getWidth()-dis.readInt(), dis.readInt()));
 				}
-				sleep(Pong.timestep);
 				DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 				dos.writeInt((int) (Pong.getPlayers()[0].getRacket().getPosition().getY()));
 				dos.flush();
+				sleep(Pong.timestep);
 				s.close();
 			}
 			catch (Exception e) {
