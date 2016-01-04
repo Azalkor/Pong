@@ -47,25 +47,31 @@ public class Pong extends JPanel implements KeyListener {
 	 * Graphic component context derived from buffer Image
 	 */
 	private Graphics graphicContext = null;
+	public static ArrayList<PongItem> getItems() {
+		return items;
+	}
+
 	private Label l0,l1;
 	private static ArrayList<PongItem> items;
 	private static Player players[];
+	private static Ball balls[];
 	private static int NB_PLAYERS = 2;
+	private static int NB_MAX_BALLS = 1;
 	private static int SCORE_WIN = 1;
 	private static String WINNER;
 	
 	public static String getWINNER() {
 		return WINNER;
 	}
-
+	public static Ball[] getBalls() {
+		return balls;
+	}
 	public static int getNB_PLAYERS() {
 		return NB_PLAYERS;
 	}
-
 	public static int getSCORE_WIN() {
 		return SCORE_WIN;
 	}
-
 	public static Player[] getPlayers() {
 		return players;
 	}
@@ -79,9 +85,11 @@ public class Pong extends JPanel implements KeyListener {
 		Racket r1 = new Racket();
 		r1.setPosition(new Point(SIZE_PONG_X-r1.getWidth(), SIZE_PONG_Y/2 - r1.getHeight()/2));
 		players[1]=new Player("Jean-Eude", r1);
+		balls=new Ball[NB_MAX_BALLS];
+		balls[0]=new Ball();
 		items.add(players[0].getRacket());
 		items.add(players[1].getRacket());
-		items.add(new Ball());
+		items.add(balls[0]);
 		Panel p = new Panel();
 		l0 = new Label (players[0].getName()+" : 10");
 		l1 = new Label (players[1].getName()+" : 10");
@@ -94,12 +102,6 @@ public class Pong extends JPanel implements KeyListener {
 	}
 	
 	public static void goal(){
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
 		for(PongItem i : items){
 			i.reset();
 		}
